@@ -9,7 +9,7 @@ import os
 
 random.seed(0)
 def pla(df_x,df_y):
-    iteration = 5
+    iteration = 10000
     i = 0
     num_var = df_x.shape[1]
     N = df_x.shape[0]
@@ -66,22 +66,15 @@ def misclassified_pts(N, rand_w , df_x_augmented):
     #outputs a set of misclassified points
     return mis_pts 
 
-os.chdir('C:/Users/Beryl/Desktop/UCLA/Courses/Fall2016/BIOSTAT/midtermProject')
-df =genfromtxt('./GermanCredit.csv', delimiter=',')
+
+df =genfromtxt('./SomeDataInCSVFormat.csv', delimiter=',')
 df = df[1:df.shape[0]]
-df_y = df[:,24]
-df_x = df[:,0:24]
+num_var = df.shape[1]
+df_y = df[:,num_var-1]
+df_x = df[:,0:num_var-1]
 #df_y can't have 0, should turn 0 to -1
 for i in range(df_y.shape[0]):
     if df_y[i] == 0:
         df_y[i] = -1
 iteration, best_weight, best_num_mis_points = pla(df_x,df_y)
-"""
-df_train = df[0:900]
-df_test = df[900:1000]
-df_train_x = np.zeros([,])##set the first column 1 and the rest is df_train[:,0:24]
-df_train_x = df_train[:,0:24]
-df_train_y = df_train[:,24]
-df_test_x = df_test[:,0:24]
-df_test_y = df_test[:,24]
-"""
+
